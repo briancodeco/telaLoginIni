@@ -19,27 +19,21 @@ async function cadastrar(
     body: JSON.stringify({
       name: name,
       date_nasc: dateNasc,
-      cpf: "123.456.789-00",
-      rg: 123456789,
+      cpf: cpf,
+      rg: rg,
       username: username,
       password: password,
       email: email,
     }),
   })
     .then((response) => {
-      if (!response.ok) {
-        console.log(response);
-        throw new Error("Erro ao criar usuário");
-      }
       return response.json();
     })
-    .then((data) => {
-      console.log("Usuário criado:", data);
-    })
     .catch((error) => {
-      console.error("Erro na requisição:", error);
+      console.error("Erro Ao Criar Usuario:", error);
     });
 }
+
 export const usuarioService = {
   cadastrar,
 };

@@ -19,21 +19,34 @@ export function CriarUsuarioScreen() {
   const [rg, setRg] = useState("");
   const [username, setUserName] = useState("");
   const navigation = useNavigation();
-
+  function cadastraUsuario(
+    name: string,
+    dateNasc: string,
+    cpf: string,
+    rg: string,
+    username: string,
+    password: string,
+    email: string
+  ) {
+    usuarioService
+      .cadastrar(name, dateNasc, cpf, rg, username, password, email)
+      .then(() => {
+        // Navega para a tela "Home" após o cadastro ser bem-sucedido
+        navigation.navigate("SignIn");
+      })
+      .catch((error) => {
+        // Lida com erros caso o cadastro falhe
+        console.error("Erro ao cadastrar usuário:", error);
+        // Você pode optar por exibir uma mensagem de erro ou realizar outras ações
+      });
+  }
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
-        placeholder="e-mail"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="senha"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
+        placeholder="name"
+        value={name}
+        onChangeText={setName}
       />
       <TextInput
         style={styles.input}
@@ -47,10 +60,9 @@ export function CriarUsuarioScreen() {
         value={cpf}
         onChangeText={setCpf}
       />
-
       <TextInput
         style={styles.input}
-        placeholder="rg"
+        placeholder="Dige seu RG"
         value={rg}
         onChangeText={setRg}
       />
@@ -60,20 +72,26 @@ export function CriarUsuarioScreen() {
         value={username}
         onChangeText={setUserName}
       />
+      <TextInput
+        style={styles.input}
+        placeholder="password"
+        secureTextEntry
+        value={password}
+        onChangeText={setPassword}
+      />
+
+      <TextInput
+        style={styles.input}
+        placeholder="e-mail"
+        value={email}
+        onChangeText={setEmail}
+      />
 
       <TouchableOpacity
         style={styles.btnSubmit}
-        onPress={() =>
-          usuarioService.cadastrar(
-            name,
-            dateNasc,
-            cpf,
-            rg,
-            username,
-            password,
-            email
-          )
-        }
+        onPress={() => {
+          cadastraUsuario(name, dateNasc, cpf, rg, username, password, email);
+        }}
       >
         <Text style={styles.submitText}>Criar</Text>
       </TouchableOpacity>

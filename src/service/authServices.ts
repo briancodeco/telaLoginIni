@@ -24,7 +24,6 @@ export async function signIn(
       }
     );
     const { authData } = response.data;
-    console.log("Received AuthData:", authData);
     return authData;
   } catch (error) {
     console.error("Erro ao autenticar usuário:", error);

@@ -47,12 +47,12 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
       const authData = await authService.signIn(email, password);
 
       setAuthData(authData);
-      AsyncStorage.setItem("@AuthData", JSON.stringify(authData));
+      await AsyncStorage.setItem("@AuthData", JSON.stringify(authData));
     } catch (error) {}
   }
   async function signOut() {
     setAuthData(undefined);
-    AsyncStorage.removeItem("@AuthData");
+    await AsyncStorage.removeItem("@AuthData");
   }
 
   return (
