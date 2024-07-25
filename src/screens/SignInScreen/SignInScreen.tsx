@@ -8,8 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { MyButton } from "../../components/MyButton";
-import { MyTextInput } from "../../components/MyTextInput";
+
 import { useAuth } from "../../contexts/Auth";
 import { useNavigation } from "@react-navigation/native";
 export function SignInScreen() {

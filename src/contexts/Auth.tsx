@@ -5,7 +5,7 @@ import { Alert } from "react-native";
 export interface AuthData {
   token: string;
   email: string;
-  name: string;
+  id: number;
 }
 
 interface AuthContextData {
@@ -48,9 +48,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
       setAuthData(authData);
       AsyncStorage.setItem("@AuthData", JSON.stringify(authData));
-    } catch (error) {
-      Alert.alert(error.message, "Tente novamente");
-    }
+    } catch (error) {}
   }
   async function signOut() {
     setAuthData(undefined);

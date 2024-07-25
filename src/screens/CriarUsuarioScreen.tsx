@@ -43,10 +43,11 @@ export function CriarUsuarioScreen() {
       />
       <TextInput
         style={styles.input}
-        placeholder="cpf"
+        placeholder="Dige seu CPF"
         value={cpf}
         onChangeText={setCpf}
       />
+
       <TextInput
         style={styles.input}
         placeholder="rg"

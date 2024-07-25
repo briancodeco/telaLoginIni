@@ -1,22 +1,43 @@
-import { AuthData } from "../contexts/Auth";
+import axios from "axios";
+const API_URL = "http://localhost:3000"; // URL base do seu backend
+export interface AuthData {
+  token: string;
+  email: string;
+  id: number;
+}
 
-const signIn = (email: string, password: string): Promise<AuthData> => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      
-      if (password === "123456") {
-        resolve({
-          token: JWTTokenMock,
-          email: email,
-          name: "Lucas Garcez",
-        });
-      } else {
-        reject(new Error("credenciais incorretas"));
+export async function signIn(
+  email: string,
+  password: string
+): Promise<AuthData> {
+  try {
+    const response = await axios.post<{
+      msg: string;
+      authData: AuthData;
+    }>(
+      `${API_URL}/usuario/autenticar`,
+      { email, password }, // Certifique-se de enviar email e password como JSON
+      {
+        headers: {
+          "Content-Type": "application/json", // Garanta que o cabeçalho content-type seja definido como application/json
+        },
       }
-    }, 1000);
-  });
-};
-
+    );
+    const { authData } = response.data;
+    console.log("Received AuthData:", authData);
+    return authData;
+  } catch (error) {
+    console.error("Erro ao autenticar usuário:", error);
+    throw error; // Tratar o erro conforme necessário na sua aplicação
+  }
+}
+function createAuthData(token: string, email: string, id: number): AuthData {
+  return {
+    token,
+    email,
+    id,
+  };
+}
 export const authService = {
   signIn,
 };
